@@ -184,3 +184,37 @@ void Octree::getPossibleBallBallCollisions(vector<BallPair>& container,Octree* r
 		}
 	}
 }
+
+void Octree::getPossibleBallWallCollisions(vector<BallWallPair>& container,Octree* root){
+	root->getPossibleBallWallCollisions(container,WALL_LEFT,'x',0);
+	root->getPossibleBallWallCollisions(container,WALL_RIGHT,'x',1);
+	root->getPossibleBallWallCollisions(container,WALL_FAR,'z',0);
+	root->getPossibleBallWallCollisions(container,WALL_NEAR,'z',1);
+	root->getPossibleBallWallCollisions(container,WALL_TOP,'y',1);
+	root->getPossibleBallWallCollisions(container,WALL_BOTTOM,'y',0);
+}
+
+void Octree::getPossibleBallWallCollisions(vector<BallWallPair>& container,Wall wall,char dirt,int index){
+	if(hasChildren){
+		Octree* child = NULL;
+		for(int i=0;i<2;i++)
+			for(int j=0;j<2;j++)
+				if(dirt=='x'){
+					children[index][i][j]->getPossibleBallWallCollisions(container,wall,dirt,index);
+				}
+				else if(dirt=='y'){
+					children[i][index][j]->getPossibleBallWallCollisions(container,wall,dirt,index);
+				}
+				else{
+					children[i][j][index]->getPossibleBallWallCollisions(container,wall,dirt,index);
+				}
+	}
+	else{
+		for(set<Ball*>::iterator it = balls.begin(); it != balls.end();it++){
+			BallWallPair pair ;
+			pair.ball = *it;
+			pair.wall = wall;
+			container.push_back(pair);
+		}
+	}
+}

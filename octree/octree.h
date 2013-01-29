@@ -20,7 +20,7 @@ private:
 	void collectBallsFromChildren(std::set<Ball*>&);
 	void processBallInChildren(Ball*,bool);
 	void spawnChildren();
-	
+	void getPossibleBallWallCollisions(std::vector<BallWallPair>&,Wall,char,int);
 public:
 	const static int MAX_BALL_EACH_NODE = 10;
 	const static int MIN_BALL_EACH_NODE = 3;
@@ -34,6 +34,7 @@ public:
 	void remove(Ball*);
 
 	static void getPossibleBallBallCollisions(std::vector<BallPair>&,Octree*);
+	static void getPossibleBallWallCollisions(std::vector<BallWallPair>&,Octree*);
 };
 
 #endif
