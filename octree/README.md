@@ -1,3 +1,4 @@
 #[Octree](http://en.wikipedia.org/wiki/Octree)#
+![](http://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Octree2.svg/640px-Octree2.svg.png)   
 Octree是一个树形数据结构，它的每一个内部子节点有8个孩子节点。Octree常常用于3D图形或者3D游戏中，它将一个三维空间递归地分割为8个小的三维空间，如此递归下去，直到到达合适的节点为止。    
 本代码中的Octree应用于快速查找三维空间中有多少小球碰撞的情况。将空间递归地分小，然后计算每一个小空间中小球的碰撞情况。
