@@ -1,0 +1,38 @@
+<html>
+<head>
+<script src="./jquery-1.7.2.min.js"></script>
+<script src="./socket.io.js"></script>
+<script>
+    var socket = io.connect('http://localhost:8008');
+
+    function status(w) {
+        document.getElementById("status").innerHTML = w;
+    }
+    
+    function say() {
+        var words = $('#text').val();
+        socket.emit('say', {w: words});
+        $('#text').val('');
+    }
+
+    socket.on('broadcast', function(data) {
+        $('#thread').append($('<div>').html(
+        'client '+data.cid+' says:<br/>'+data.w));
+    });
+
+    socket.on('join', function (data){
+        status('Client ' + data.cid + ' joins!');
+    });
+
+    socket.on('quit', function (data){
+        status('Client ' + data.cid + ' quit!');
+    });
+</script>
+</head>
+<body>
+    <div id='status'></div>
+    <div id='thread'></div>
+    <div><textarea id='text' name='text'></textarea></div>
+    <div><button id='send' onclick="say()">send</button></div>
+</body>
+</html>

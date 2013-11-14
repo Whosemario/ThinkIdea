@@ -316,8 +316,8 @@ template< class T, std::size_t N, class Y > inline void sp_deleter_construct( bo
 
 } // namespace detail
 
-
-//
+/* shared_ptr类从这里开始定义*/
+//  
 //  shared_ptr
 //
 //  An enhanced relative of scoped_ptr with reference counted copy semantics.
